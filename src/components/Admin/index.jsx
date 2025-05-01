@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { getUsers, updateUser } from "../../models/users";
-// import { useTheme } from "../../context/ThemeContext";
 import "./Admin.css";
 
 export default function Admin() {
@@ -8,7 +7,6 @@ export default function Admin() {
   const [users, setUsers] = useState(getUsers());
   const [showPopup, setShowPopup] = useState(false);
   const [popupMessage, setPopupMessage] = useState("");
-  // const { theme, setTheme } = useTheme();
 
   const handleChange = (email, field, value) => {
     setUsers((prev) =>
@@ -45,6 +43,24 @@ export default function Admin() {
       <h2>Admin Panel</h2>
 
       <div className="admin-tabs">
+      <button
+          className={activeTab === "home" ? "active" : ""}
+          onClick={() => setActiveTab("home")}
+        >
+          Home
+          </button>
+          <button
+          className={activeTab === "authorDashboard" ? "active" : ""}
+          onClick={() => setActiveTab("authorDashboard")}
+        >
+          Author Dashboard
+          </button>
+          <button
+          className={activeTab === "bookstagrammarDashboard" ? "active" : ""}
+          onClick={() => setActiveTab("bookstagrammarDashboard")}
+        >
+          Bookstagrammar Dashboard
+          </button>
         <button
           className={activeTab === "users" ? "active" : ""}
           onClick={() => setActiveTab("users")}
@@ -52,10 +68,10 @@ export default function Admin() {
           Users
         </button>
         <button
-          className={activeTab === "reports" ? "active" : ""}
-          onClick={() => setActiveTab("reports")}
+          className={activeTab === "services" ? "active" : ""}
+          onClick={() => setActiveTab("services")}
         >
-          Reports
+          Services
         </button>
         <button
           className={activeTab === "settings" ? "active" : ""}
@@ -107,9 +123,9 @@ export default function Admin() {
                             handleChange(user.email, "role", e.target.value)
                           }
                         >
-                          <option value="user">User</option>
-                          <option value="admin">Admin</option>
-                          <option value="moderator">Moderator</option>
+                          <option value="user">Admin</option>
+                          <option value="admin">Author</option>
+                          <option value="moderator">Bookstagrammer</option>
                         </select>
                       </td>
                       <td>
@@ -124,8 +140,10 @@ export default function Admin() {
             )}
           </div>
         )}
-
-        {activeTab === "reports" && <p>Reports tab coming soon.</p>}
+        {activeTab === "home" && <p>Home tab coming soon.</p>}
+        {activeTab === "authorDashboard" && <p>Author Dashboard tab coming soon.</p>}
+        {activeTab === "bookstagrammarDashboard" && <p>Bookstagrammar Dashboard tab coming soon.</p>}
+        {activeTab === "services" && <p>Services tab coming soon.</p>}
         {activeTab === "settings" && (
           <div className="tab-content">
             <h3>Theme Settings</h3>
