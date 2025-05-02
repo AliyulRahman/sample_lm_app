@@ -5,7 +5,6 @@ export default function Home() {
   const navigate = useNavigate();
 
   const handleLogin = () => {
-    // You can clear tokens/session here in future
     navigate("/login");
   };
 
@@ -14,14 +13,8 @@ export default function Home() {
       <nav className="navbar">
         <div className="navbar-left">
           <button onClick={() => navigate("/admin")}>Admin</button>
-        </div>
-        <div className="navbar-left">
           <button onClick={() => navigate("/")}>Services</button>
-        </div>
-        <div className="navbar-left">
           <button onClick={() => navigate("/")}>Author Dashboard</button>
-        </div>
-        <div className="navbar-left">
           <button onClick={() => navigate("/")}>Bookstagrammer Dashboard</button>
         </div>
         <div className="navbar-right">

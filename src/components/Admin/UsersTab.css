@@ -1,0 +1,52 @@
+/* User Table Styles */
+.user-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  .user-table th,
+  .user-table td {
+    border: 1px solid #e5e7eb;
+    padding: 12px;
+    text-align: left;
+    font-size: 14px;
+  }
+  
+  .user-table th {
+    background-color: #f3f4f6;
+    font-weight: 600;
+  }
+  
+  .user-table input,
+  .user-table select {
+    padding: 6px;
+    border-radius: 4px;
+    border: 1px solid #d1d5db;
+    width: 100%;
+    font-size: 14px;
+    background-color: #ffffff;
+  }
+  
+  .user-table button {
+    padding: 6px 12px;
+    background-color: #10b981;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  
+  .user-table button:hover {
+    background-color: #059669;
+  }
+  
+  /* Responsive Styles */
+  @media (max-width: 768px) {
+    .user-table th, .user-table td {
+      font-size: 12px;
+      padding: 8px;
+    }
+  }
+  
