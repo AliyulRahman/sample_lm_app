@@ -1,65 +1,82 @@
-// services.js
+// models/services.js
 
-let services = [
-    // Sample service data
-    {
-      id: 1,
-      title: "Web Development",
-      description: "Building modern web applications.",
-      image: "https://via.placeholder.com/150",
-    },
-    // Add more sample services as needed
-  ];
-  
-  let serviceImages = [
-    // Sample image data
-    "https://via.placeholder.com/200",
-    "https://via.placeholder.com/200/ff7f7f",
-  ];
-  
-  // Get all services
-  export function getServices() {
-    return services;
+// LocalStorage Keys
+const SERVICES_KEY = "literaire_services";
+const SLIDER_KEY = "literaire_slider_images";
+
+// Helpers to sync with localStorage
+const loadFromStorage = (key) => {
+  try {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : [];
+  } catch (err) {
+    console.error("Error loading from localStorage", err);
+    return [];
   }
-  
-  // Get all service images for the slider
-  export function getServiceImages() {
-    return serviceImages;
+};
+
+const saveToStorage = (key, data) => {
+  try {
+    localStorage.setItem(key, JSON.stringify(data));
+  } catch (err) {
+    console.error("Error saving to localStorage", err);
   }
-  
-  // Add a new service
-  export function addService(service) {
-    const newService = { ...service, id: services.length + 1 };
-    services.push(newService);
+};
+
+// Initialize data from localStorage
+let services = loadFromStorage(SERVICES_KEY);
+let sliderImages = loadFromStorage(SLIDER_KEY);
+
+// ===== SERVICES CRUD =====
+
+export const getServices = () => services;
+
+export const addService = ({ title, description, image }) => {
+  const newService = {
+    id: Date.now().toString(),
+    title,
+    description,
+    image,
+  };
+  services.push(newService);
+  saveToStorage(SERVICES_KEY, services);
+};
+
+export const updateService = (id, updatedData) => {
+  const index = services.findIndex((service) => service.id === id);
+  if (index !== -1) {
+    services[index] = { ...services[index], ...updatedData };
+    saveToStorage(SERVICES_KEY, services);
   }
-  
-  // Update an existing service
-  export function updateService(id, updatedService) {
-    const serviceIndex = services.findIndex((service) => service.id === id);
-    if (serviceIndex !== -1) {
-      services[serviceIndex] = { ...services[serviceIndex], ...updatedService };
-    }
+};
+
+export const deleteService = (id) => {
+  services = services.filter((service) => service.id !== id);
+  saveToStorage(SERVICES_KEY, services);
+};
+
+// ===== SLIDER IMAGE CRUD =====
+
+export const getServiceImages = () => sliderImages;
+
+export const addServiceImage = (image) => {
+  const newImage = {
+    id: Date.now().toString(),
+    image,
+  };
+  sliderImages.push(newImage);
+  saveToStorage(SLIDER_KEY, sliderImages);
+};
+
+export const updateServiceImage = (id, updatedImage) => {
+  const index = sliderImages.findIndex((img) => img.id === id);
+  if (index !== -1) {
+    sliderImages[index].image = updatedImage;
+    saveToStorage(SLIDER_KEY, sliderImages);
   }
-  
-  // Delete a service
-  export function deleteService(id) {
-    services = services.filter((service) => service.id !== id);
-  }
-  
-  // Add a new service image to the image slider
-  export function addServiceImage(image) {
-    serviceImages.push(image);
-  }
-  
-  // Delete a service image from the slider
-  export function deleteServiceImage(index) {
-    serviceImages.splice(index, 1);
-  }
-  
-  // Update a service image in the image slider
-  export function updateServiceImage(index, newImage) {
-    if (index >= 0 && index < serviceImages.length) {
-      serviceImages[index] = newImage; // Update the image at the given index
-    }
-  }
-  
+};
+
+export const deleteServiceImage = (id) => {
+  sliderImages = sliderImages.filter((img) => img.id !== id);
+  saveToStorage(SLIDER_KEY, sliderImages);
+};

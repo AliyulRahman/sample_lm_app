@@ -13,7 +13,7 @@ export default function Home() {
       <nav className="navbar">
         <div className="navbar-left">
           <button onClick={() => navigate("/admin")}>Admin</button>
-          <button onClick={() => navigate("/")}>Services</button>
+          <button onClick={() => navigate("/services")}>Services</button>
           <button onClick={() => navigate("/")}>Author Dashboard</button>
           <button onClick={() => navigate("/")}>Bookstagrammer Dashboard</button>
         </div>

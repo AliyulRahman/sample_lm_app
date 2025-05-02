@@ -3,6 +3,7 @@ import Home from "./components/Home/";
 import LoginForm from "./components/Login/LoginForm";
 import Admin from "./components/Admin/";
 import "./App.css";
+import Services from "./components/Services";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<LoginForm />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/services" element={<Services />} />
       </Routes>
     </Router>
   );

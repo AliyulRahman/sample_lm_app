@@ -17,7 +17,7 @@ export default function ServicesTab() {
   const [form, setForm] = useState({ title: "", description: "", image: "" });
 
   const [serviceImages, setServiceImages] = useState([]);
-  const [imageForm, setImageForm] = useState({ image: "", index: null });
+  const [imageForm, setImageForm] = useState({ image: "", id: null });
 
   useEffect(() => {
     setServices(getServices());
@@ -75,21 +75,21 @@ export default function ServicesTab() {
   };
 
   const handleAddOrUpdateSliderImage = () => {
-    if (imageForm.index !== null) {
-      updateServiceImage(imageForm.index, imageForm.image);
+    if (imageForm.id) {
+      updateServiceImage(imageForm.id, imageForm.image);
     } else {
       addServiceImage(imageForm.image);
     }
     setServiceImages(getServiceImages());
-    setImageForm({ image: "", index: null });
+    setImageForm({ image: "", id: null });
   };
 
-  const handleEditSliderImage = (index) => {
-    setImageForm({ image: serviceImages[index], index });
+  const handleEditSliderImage = (img) => {
+    setImageForm({ image: img.image, id: img.id });
   };
 
-  const handleDeleteSliderImage = (index) => {
-    deleteServiceImage(index);
+  const handleDeleteSliderImage = (id) => {
+    deleteServiceImage(id);
     setServiceImages(getServiceImages());
   };
 
@@ -135,17 +135,17 @@ export default function ServicesTab() {
       <div className="slider-form">
         <input type="file" accept="image/*" onChange={handleSliderImageChange} />
         <button onClick={handleAddOrUpdateSliderImage}>
-          {imageForm.index !== null ? "Update" : "Add"} Image
+          {imageForm.id ? "Update" : "Add"} Image
         </button>
       </div>
 
       <div className="slider-images">
-        {serviceImages.map((img, idx) => (
-          <div key={idx} className="slider-image-card">
-            <img src={img} alt={`Slider ${idx + 1}`} />
+        {serviceImages.map((img) => (
+          <div key={img.id} className="slider-image-card">
+            <img src={img.image} alt="Slider" />
             <div className="card-actions">
-              <button onClick={() => handleEditSliderImage(idx)}>Edit</button>
-              <button onClick={() => handleDeleteSliderImage(idx)}>Delete</button>
+              <button onClick={() => handleEditSliderImage(img)}>Edit</button>
+              <button onClick={() => handleDeleteSliderImage(img.id)}>Delete</button>
             </div>
           </div>
         ))}
