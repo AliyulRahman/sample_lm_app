@@ -13,6 +13,7 @@ export default function Navbar() {
         <button onClick={() => navigate("/")}>Bookstagrammer Dashboard</button>
       </div>
       <div className="navbar-right">
+        <button onClick={() => navigate("/contactus")}>Contact Us</button>
         <button onClick={() => navigate("/login")}>Login</button>
       </div>
     </nav>
