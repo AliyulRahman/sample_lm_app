@@ -1,22 +1,129 @@
-.home-container {
+.home-page {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #f9fafb;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-}
-
-.home-content {
+  color: #333;
   padding: 40px;
+  max-width: 80%;
+  margin: 0 auto;
 }
 
-.home-content h1 {
-  font-size: 32px;
-  margin-bottom: 16px;
-  color: #111827;
+.section {
+  margin-bottom: 60px;
 }
 
-.home-content p {
-  font-size: 16px;
-  color: #374151;
+.section h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #1976d2;
+}
+
+/* ----------- INTRODUCTION SECTION ----------- */
+.intro-section .intro-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.intro-text {
+  flex: 1;
+}
+
+.intro-text h2 {
+  margin-bottom: 10px;
+  font-size: 2.2rem;
+}
+
+.intro-text p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.intro-image {
+  flex: 1;
+  text-align: right;
+}
+
+.intro-image img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* ------------ OTHER SECTIONS ------------ */
+
+.card-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: flex-start;
+}
+
+.info-card,
+.team-card,
+.author-card {
+  background: #f9f9f9;
+  border-radius: 10px;
+  padding: 20px;
+  flex: 1 1 250px;
+  max-width: 500px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  text-align: center;
+}
+
+.team-card img,
+.author-card img {
+  width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.author-card ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.author-card li a {
+  color: #1976d2;
+  text-decoration: none;
+}
+
+/* ------------ COLLAPSIBLE FAQ ------------ */
+.faq-list .faq-item {
+  background: #eef3f7;
+  padding: 15px 20px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.faq-list .faq-item:hover {
+  background-color: #dde8f0;
+}
+
+.faq-list .faq-item strong {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.faq-list .faq-item.open p {
+  margin-top: 5px;
+}
+
+/* ------------ FOOTER ------------ */
+.footer {
+  background: #f1f1f1;
+  padding: 30px;
+  text-align: center;
+  border-top: 2px solid #ccc;
+}
+
+.footer a {
+  margin: 0 10px;
+  color: #1976d2;
+  text-decoration: none;
 }
