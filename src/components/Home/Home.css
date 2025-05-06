@@ -68,7 +68,7 @@
   flex: 1 1 250px;
   max-width: 500px;
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-  text-align: center;
+  text-align: justify;
 }
 
 .team-card img,
@@ -112,18 +112,4 @@
 
 .faq-list .faq-item.open p {
   margin-top: 5px;
-}
-
-/* ------------ FOOTER ------------ */
-.footer {
-  background: #f1f1f1;
-  padding: 30px;
-  text-align: center;
-  border-top: 2px solid #ccc;
-}
-
-.footer a {
-  margin: 0 10px;
-  color: #1976d2;
-  text-decoration: none;
 }

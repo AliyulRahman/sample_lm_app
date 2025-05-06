@@ -6,6 +6,7 @@ import "./App.css";
 import Services from "./components/Services";
 import Navbar from "./components/Navbar";
 import ContactUs from "./components/ContactUs"
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
         <Route path="/services" element={<Services />} />
         <Route path="/contactus" element={<ContactUs />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }

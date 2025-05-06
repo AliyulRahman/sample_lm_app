@@ -97,17 +97,6 @@ export default function Home() {
           ))}
         </div>
       </section>
-
-      {/* Footer */}
-      <footer className="footer">
-        <p>{data.footer.about}</p>
-        <p>Email: {data.footer.email}</p>
-        <p>Phone: {data.footer.phone}</p>
-        <div className="social-links">
-          <a href={data.footer.insta} target="_blank" rel="noopener noreferrer">Instagram</a>
-          <a href={data.footer.facebook} target="_blank" rel="noopener noreferrer">Facebook</a>
-        </div>
-      </footer>
     </div>
   );
 }

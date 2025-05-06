@@ -39,7 +39,7 @@ export default function Services() {
         ))}
       </div>
 
-      <h2 className="slider-title">Gallery</h2>
+      <h2 className="slider-title">Reviews</h2>
       <div className="slider-container">
         {sliderImages.length > 0 && (
           <img
