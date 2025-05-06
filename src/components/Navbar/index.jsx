@@ -9,7 +9,7 @@ export default function Navbar() {
 
   return (
     <nav className="navbar">
-      <div className="navbar-logo" onClick={() => navigate("/")}><FaHome/></div>
+      {/* <div className="navbar-logo" onClick={() => navigate("/")}><FaHome/></div> */}
 
       <button className="hamburger" onClick={() => setMenuOpen(!menuOpen)}>
         ☰
@@ -17,6 +17,7 @@ export default function Navbar() {
 
       <div className={`navbar-links ${menuOpen ? "open" : ""}`}>
         <div className="navbar-left">
+        <div className="navbar-logo" onClick={() => navigate("/")}><FaHome/></div>
           <button onClick={() => navigate("/admin")}>Admin</button>
           <button onClick={() => navigate("/services")}>Services</button>
           <button onClick={() => navigate("/")}>Author Dashboard</button>
