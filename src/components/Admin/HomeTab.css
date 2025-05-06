@@ -1,0 +1,89 @@
+.home-tab {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 30px;
+    background-color: #fafafa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .home-tab h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  .home-tab section {
+    background-color: #fff;
+    padding: 20px 25px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .home-tab section h3 {
+    margin-top: 0;
+    color: #444;
+    margin-bottom: 20px;
+  }
+  
+  .home-tab input[type="text"],
+  .home-tab input[type="email"],
+  .home-tab input[type="tel"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+  }
+  
+  .home-tab input[type="file"] {
+    margin: 10px 0;
+  }
+  
+  .home-tab img {
+    display: block;
+    max-width: 150px;
+    margin-top: 10px;
+    border-radius: 5px;
+  }
+  
+  .list-item,
+  .nested-list-item {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .nested-list-item {
+    margin-left: 20px;
+  }
+  
+  .home-tab button {
+    background-color: #007bff;
+    color: #fff;
+    padding: 8px 14px;
+    margin-top: 10px;
+    margin-right: 8px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+  }
+  
+  .home-tab button:hover {
+    background-color: #0056b3;
+  }
+  
+  .save-button {
+    display: block;
+    margin: 30px auto;
+    background-color: #28a745;
+  }
+  
+  .save-button:hover {
+    background-color: #218838;
+  }
+  
