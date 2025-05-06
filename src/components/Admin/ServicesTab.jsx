@@ -12,6 +12,8 @@ import {
 import "./ServicesTab.css";
 
 export default function ServicesTab() {
+  const [activeTab, setActiveTab] = useState("services");
+
   const [services, setServices] = useState([]);
   const [editingServiceId, setEditingServiceId] = useState(null);
   const [form, setForm] = useState({ title: "", description: "", image: "" });
@@ -95,61 +97,88 @@ export default function ServicesTab() {
 
   return (
     <div className="services-tab">
-      <h3>Manage Services</h3>
-      <div className="service-form">
-        <input
-          name="title"
-          placeholder="Service Title"
-          value={form.title}
-          onChange={handleServiceInputChange}
-        />
-        <textarea
-          name="description"
-          placeholder="Service Description"
-          value={form.description}
-          onChange={handleServiceInputChange}
-        />
-        <input type="file" accept="image/*" onChange={handleServiceImageChange} />
-        <button onClick={handleAddOrUpdateService}>
-          {editingServiceId ? "Update" : "Add"} Service
+      <h2>Services Management</h2>
+
+      <div className="tab-buttons">
+        <button
+          className={activeTab === "services" ? "active" : ""}
+          onClick={() => setActiveTab("services")}
+        >
+          Services
+        </button>
+        <button
+          className={activeTab === "slider" ? "active" : ""}
+          onClick={() => setActiveTab("slider")}
+        >
+          Image Slider
         </button>
       </div>
 
-      <div className="service-list">
-        {services.map((service) => (
-          <div key={service.id} className="service-card">
-            <img src={service.image} alt={service.title} />
-            <h4>{service.title}</h4>
-            <p>{service.description}</p>
-            <div className="card-actions">
-              <button onClick={() => handleEditService(service)}>Edit</button>
-              <button onClick={() => handleDeleteService(service.id)}>Delete</button>
-            </div>
+      {activeTab === "services" && (
+        <div className="tab-content">
+          <h3>Manage Services</h3>
+          <div className="service-form">
+            <input
+              name="title"
+              placeholder="Service Title"
+              value={form.title}
+              onChange={handleServiceInputChange}
+            />
+            <textarea
+              name="description"
+              placeholder="Service Description"
+              value={form.description}
+              onChange={handleServiceInputChange}
+            />
+            <input
+              type="file"
+              accept="image/*"
+              onChange={handleServiceImageChange}
+            />
+            <button onClick={handleAddOrUpdateService}>
+              {editingServiceId ? "Update" : "Add"} Service
+            </button>
           </div>
-        ))}
-      </div>
 
-      <hr />
-
-      <h3>Service Image Slider</h3>
-      <div className="slider-form">
-        <input type="file" accept="image/*" onChange={handleSliderImageChange} />
-        <button onClick={handleAddOrUpdateSliderImage}>
-          {imageForm.id ? "Update" : "Add"} Image
-        </button>
-      </div>
-
-      <div className="slider-images">
-        {serviceImages.map((img) => (
-          <div key={img.id} className="slider-image-card">
-            <img src={img.image} alt="Slider" />
-            <div className="card-actions">
-              <button onClick={() => handleEditSliderImage(img)}>Edit</button>
-              <button onClick={() => handleDeleteSliderImage(img.id)}>Delete</button>
-            </div>
+          <div className="service-list">
+            {services.map((service) => (
+              <div key={service.id} className="service-card">
+                <img src={service.image} alt={service.title} />
+                <h4>{service.title}</h4>
+                <p>{service.description}</p>
+                <div className="card-actions">
+                  <button onClick={() => handleEditService(service)}>Edit</button>
+                  <button onClick={() => handleDeleteService(service.id)}>Delete</button>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </div>
+      )}
+
+      {activeTab === "slider" && (
+        <div className="tab-content">
+          <h3>Service Image Slider</h3>
+          <div className="slider-form">
+            <input type="file" accept="image/*" onChange={handleSliderImageChange} />
+            <button onClick={handleAddOrUpdateSliderImage}>
+              {imageForm.id ? "Update" : "Add"} Image
+            </button>
+          </div>
+
+          <div className="slider-images">
+            {serviceImages.map((img) => (
+              <div key={img.id} className="slider-image-card">
+                <img src={img.image} alt="Slider" />
+                <div className="card-actions">
+                  <button onClick={() => handleEditSliderImage(img)}>Edit</button>
+                  <button onClick={() => handleDeleteSliderImage(img.id)}>Delete</button>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
