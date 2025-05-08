@@ -1,52 +1,141 @@
-/* User Table Styles */
+/* Container layout */
+.tab-content {
+  padding: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  min-height: 100vh;
+}
+
+/* Header with Add User button */
+.user-tab-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.user-tab-header h2 {
+  font-size: 24px;
+  color: #333;
+}
+
+.add-user-btn {
+  padding: 10px 18px;
+  background-color: #28a745;
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 15px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.add-user-btn:hover {
+  background-color: #218838;
+}
+
+/* User table styles */
 .user-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 10px;
-  }
-  
+  width: 100%;
+  border-collapse: collapse;
+  background-color: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+}
+
+.user-table th,
+.user-table td {
+  border: 1px solid #e0e0e0;
+  padding: 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.user-table th {
+  background-color: #f1f1f1;
+  color: #333;
+  font-weight: 600;
+}
+
+.user-table td {
+  color: #555;
+}
+
+.user-table button {
+  padding: 6px 12px;
+  font-size: 13px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.user-table button:hover {
+  background-color: #0056b3;
+}
+
+/* Form popup overlay and container */
+.form-popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+}
+
+.form-popup {
+  background-color: white;
+  padding: 25px 30px;
+  width: 90%;
+  max-width: 750px;
+  border-radius: 10px;
+  position: relative;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Close (X) button */
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  font-weight: bold;
+  color: #666;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #000;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .user-table th,
   .user-table td {
-    border: 1px solid #e5e7eb;
-    padding: 12px;
-    text-align: left;
-    font-size: 14px;
+    font-size: 12px;
+    padding: 10px;
   }
-  
-  .user-table th {
-    background-color: #f3f4f6;
-    font-weight: 600;
+
+  .add-user-btn {
+    padding: 8px 14px;
+    font-size: 13px;
   }
-  
-  .user-table input,
-  .user-table select {
-    padding: 6px;
-    border-radius: 4px;
-    border: 1px solid #d1d5db;
-    width: 100%;
-    font-size: 14px;
-    background-color: #ffffff;
+
+  .form-popup {
+    padding: 20px;
   }
-  
-  .user-table button {
-    padding: 6px 12px;
-    background-color: #10b981;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-  }
-  
-  .user-table button:hover {
-    background-color: #059669;
-  }
-  
-  /* Responsive Styles */
-  @media (max-width: 768px) {
-    .user-table th, .user-table td {
-      font-size: 12px;
-      padding: 8px;
-    }
-  }
-  
+}
