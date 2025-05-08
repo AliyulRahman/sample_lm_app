@@ -1,29 +1,32 @@
 import { useState } from "react";
 import { getUsers } from "../../models/users";
 import RegisterForm from "../Login/RegisterForm";
+import BookstagrammerInput from "./BookstagrammerInput";
+import AuthorInput from "./AuthorInput";
 import "./UsersTab.css";
 
 export default function UsersTab() {
   const [users, setUsers] = useState(getUsers());
-  const [showForm, setShowForm] = useState(false);
-  const [selectedUser, setSelectedUser] = useState(null); // user data for editing
+  // const [showForm, setShowForm] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [activePopup, setActivePopup] = useState(""); // "form", "bookstagrammer", or "author"
 
-  const handleOpenForm = (user = null) => {
+  const openPopup = (type, user = null) => {
     setSelectedUser(user);
-    setShowForm(true);
+    setActivePopup(type);
   };
 
-  const handleCloseForm = () => {
+  const closePopup = () => {
     setSelectedUser(null);
-    setShowForm(false);
-    setUsers(getUsers()); // Refresh user list after add/update
+    setActivePopup("");
+    setUsers(getUsers()); // Refresh list
   };
 
   return (
     <div className="tab-content">
       <div className="user-tab-header">
         <h2>Registered Users</h2>
-        <button className="add-user-btn" onClick={() => handleOpenForm()}>
+        <button className="add-user-btn" onClick={() => openPopup("form")}>
           + Add User
         </button>
       </div>
@@ -40,6 +43,8 @@ export default function UsersTab() {
               <th>Status</th>
               <th>Role</th>
               <th>Actions</th>
+              <th>Bookstagrammer</th>
+              <th>Author</th>
             </tr>
           </thead>
           <tbody>
@@ -51,7 +56,17 @@ export default function UsersTab() {
                 <td>{user.status}</td>
                 <td>{Array.isArray(user.role) ? user.role.join(', ') : user.role}</td>
                 <td>
-                  <button onClick={() => handleOpenForm(user)}>View</button>
+                  <button className="role-btn" onClick={() => openPopup("form", user)}>View/Edit</button>
+                </td>
+                <td>
+                  <button className="role-btn" onClick={() => openPopup("bookstagrammer", user)}>
+                    View/Edit
+                  </button>
+                </td>
+                <td>
+                  <button className="role-btn" onClick={() => openPopup("author", user)}>
+                  View/Edit
+                  </button>
                 </td>
               </tr>
             ))}
@@ -59,15 +74,33 @@ export default function UsersTab() {
         </table>
       )}
 
-      {showForm && (
+      {activePopup === "form" && (
         <div className="form-popup-overlay">
           <div className="form-popup">
-            <button className="close-btn" onClick={handleCloseForm}>✕</button>
+            <button className="close-btn" onClick={closePopup}>✕</button>
             <RegisterForm
               isAdminPanel={true}
               selectedUser={selectedUser}
-              onClose={handleCloseForm}
+              onClose={closePopup}
             />
+          </div>
+        </div>
+      )}
+
+      {activePopup === "bookstagrammer" && (
+        <div className="form-popup-overlay">
+          <div className="form-popup">
+            <button className="close-btn" onClick={closePopup}>✕</button>
+            <BookstagrammerInput user={selectedUser} />
+          </div>
+        </div>
+      )}
+
+      {activePopup === "author" && (
+        <div className="form-popup-overlay">
+          <div className="form-popup">
+            <button className="close-btn" onClick={closePopup}>✕</button>
+            <AuthorInput user={selectedUser} />
           </div>
         </div>
       )}

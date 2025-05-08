@@ -1,0 +1,69 @@
+.bookstagrammer-container {
+    background: #fff9f2;
+    border: 1px solid #ffd8a8;
+    padding: 20px;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 500px;
+    margin: auto;
+    box-shadow: 0 4px 8px rgba(255, 180, 100, 0.2);
+  }
+  
+  .bookstagrammer-container h3 {
+    margin-bottom: 15px;
+    color: #d17b0f;
+    text-align: center;
+  }
+  
+  .task-input {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+  
+  .task-input input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ffcd91;
+    border-radius: 5px;
+    outline: none;
+  }
+  
+  .task-input button {
+    background-color: #ffa94d;
+    color: white;
+    border: none;
+    padding: 8px 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+  }
+  
+  .task-input button:hover {
+    background-color: #ff922b;
+  }
+  
+  .task-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .task-list li {
+    background: #fff3e0;
+    padding: 8px 12px;
+    margin-bottom: 8px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #ffe0b3;
+  }
+  
+  .task-list button {
+    background: none;
+    border: none;
+    color: #ff6b6b;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
