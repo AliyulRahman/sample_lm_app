@@ -1,47 +1,33 @@
-import { useState, useEffect } from "react";
-import { getUsers, updateUser } from "../../models/users";
+import { useState } from "react";
+import { getUsers } from "../../models/users";
+import RegisterForm from "../Login/RegisterForm";
 import "./UsersTab.css";
 
 export default function UsersTab() {
   const [users, setUsers] = useState(getUsers());
-  const [showPopup, setShowPopup] = useState(false);
-  const [popupMessage, setPopupMessage] = useState("");
+  const [showForm, setShowForm] = useState(false);
+  const [selectedUser, setSelectedUser] = useState(null); // user data for editing
 
-  const handleChange = (email, field, value) => {
-    setUsers((prev) =>
-      prev.map((user) =>
-        user.email === email ? { ...user, [field]: value } : user
-      )
-    );
+  const handleOpenForm = (user = null) => {
+    setSelectedUser(user);
+    setShowForm(true);
   };
 
-  const handleSave = (email) => {
-    const userToSave = users.find((user) => user.email === email);
-    if (userToSave) {
-      updateUser(email, {
-        fullName: userToSave.fullName,
-        email: userToSave.email,
-        phone: userToSave.phone,
-        status: userToSave.status,
-        role: userToSave.role,
-      });
-      setUsers(getUsers());
-      setPopupMessage(`Saved changes for ${userToSave.fullName}`);
-      setShowPopup(true);
-    }
+  const handleCloseForm = () => {
+    setSelectedUser(null);
+    setShowForm(false);
+    setUsers(getUsers()); // Refresh user list after add/update
   };
-
-  useEffect(() => {
-    if (showPopup) {
-      const timer = setTimeout(() => {
-        setShowPopup(false);
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showPopup]);
 
   return (
     <div className="tab-content">
+      <div className="user-tab-header">
+        <h2>Registered Users</h2>
+        <button className="add-user-btn" onClick={() => handleOpenForm()}>
+          + Add User
+        </button>
+      </div>
+
       {users.length === 0 ? (
         <p>No registered users yet.</p>
       ) : (
@@ -59,59 +45,13 @@ export default function UsersTab() {
           <tbody>
             {users.map((user) => (
               <tr key={user.email}>
+                <td>{user.name}</td>
+                <td>{user.email}</td>
+                <td>{user.whatsapp}</td>
+                <td>{user.status}</td>
+                <td>{user.role}</td>
                 <td>
-                  <input
-                    type="text"
-                    value={user.fullName}
-                    onChange={(e) =>
-                      handleChange(user.email, "fullName", e.target.value)
-                    }
-                  />
-                </td>
-                <td>
-                  <input
-                    type="email"
-                    value={user.email}
-                    onChange={(e) =>
-                      handleChange(user.email, "email", e.target.value)
-                    }
-                  />
-                </td>
-                <td>
-                  <input
-                    type="tel"
-                    value={user.phone}
-                    onChange={(e) =>
-                      handleChange(user.email, "phone", e.target.value)
-                    }
-                  />
-                </td>
-                <td>
-                  <select
-                    value={user.status}
-                    onChange={(e) =>
-                      handleChange(user.email, "status", e.target.value)
-                    }
-                  >
-                    <option value="pending">Pending</option>
-                    <option value="active">Active</option>
-                    <option value="disabled">Disabled</option>
-                  </select>
-                </td>
-                <td>
-                  <select
-                    value={user.role}
-                    onChange={(e) =>
-                      handleChange(user.email, "role", e.target.value)
-                    }
-                  >
-                    <option value="user">User</option>
-                    <option value="admin">Admin</option>
-                    <option value="moderator">Bookstagrammer</option>
-                  </select>
-                </td>
-                <td>
-                  <button onClick={() => handleSave(user.email)}>Save</button>
+                  <button onClick={() => handleOpenForm(user)}>View</button>
                 </td>
               </tr>
             ))}
@@ -119,10 +59,15 @@ export default function UsersTab() {
         </table>
       )}
 
-      {showPopup && (
-        <div className="popup">
-          <div className="popup-content">
-            <p>{popupMessage}</p>
+      {showForm && (
+        <div className="form-popup-overlay">
+          <div className="form-popup">
+            <button className="close-btn" onClick={handleCloseForm}>✕</button>
+            <RegisterForm
+              isAdminPanel={true}
+              selectedUser={selectedUser}
+              onClose={handleCloseForm}
+            />
           </div>
         </div>
       )}
