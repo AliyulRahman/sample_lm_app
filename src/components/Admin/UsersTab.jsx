@@ -49,7 +49,7 @@ export default function UsersTab() {
                 <td>{user.email}</td>
                 <td>{user.whatsapp}</td>
                 <td>{user.status}</td>
-                <td>{user.role}</td>
+                <td>{Array.isArray(user.role) ? user.role.join(', ') : user.role}</td>
                 <td>
                   <button onClick={() => handleOpenForm(user)}>View</button>
                 </td>

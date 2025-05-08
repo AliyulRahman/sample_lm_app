@@ -12,7 +12,7 @@ export default function RegisterForm({ onClose, isAdminPanel, selectedUser }) {
     city: "",
     instagram: "",
     goodreads: "",
-    role: "",
+    role: [],
     reviewFrequency: "",
     bookType: "",
     collaboratedWithAuthors: "",
@@ -31,13 +31,23 @@ export default function RegisterForm({ onClose, isAdminPanel, selectedUser }) {
 
   useEffect(() => {
     if (selectedUser) {
-      setForm(selectedUser);
+      setForm({
+        ...selectedUser,
+        role: Array.isArray(selectedUser.role) ? selectedUser.role : [selectedUser.role],
+      });
     }
   }, [selectedUser]);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    const { name, value, multiple, options } = e.target;
+    if (multiple) {
+      const selectedValues = Array.from(options)
+        .filter((o) => o.selected)
+        .map((o) => o.value);
+      setForm({ ...form, [name]: selectedValues });
+    } else {
+      setForm({ ...form, [name]: value });
+    }
   };
 
   const handleSubmit = (e) => {
@@ -74,22 +84,12 @@ export default function RegisterForm({ onClose, isAdminPanel, selectedUser }) {
   }
 
   if (submitted && isAdminPanel) {
-    if (selectedUser) {
-      return (
-        <div className="register-success">
-          <p>Data updated successfully.</p>
-          <button onClick={onClose}>Close</button>
-        </div>
-      );
-    }
-    else {
-      return (
-        <div className="register-success">
-          <p>Data added successfully.</p>
-          <button onClick={onClose}>Close</button>
-        </div>
-      );
-    }
+    return (
+      <div className="register-success">
+        <p>{selectedUser ? "Data updated successfully." : "Data added successfully."}</p>
+        <button onClick={onClose}>Close</button>
+      </div>
+    );
   }
 
   return (
@@ -136,46 +136,35 @@ export default function RegisterForm({ onClose, isAdminPanel, selectedUser }) {
         </select>
 
         <label>WhatsApp Number</label>
-        <input
-          type="text"
-          name="whatsapp"
-          value={form.whatsapp}
-          onChange={handleChange}
-        />
+        <input type="text" name="whatsapp" value={form.whatsapp} onChange={handleChange} />
 
         <label>City</label>
-        <input
-          type="text"
-          name="city"
-          value={form.city}
-          onChange={handleChange}
-        />
+        <input type="text" name="city" value={form.city} onChange={handleChange} />
 
         <label>Instagram ID</label>
-        <input
-          type="text"
-          name="instagram"
-          value={form.instagram}
-          onChange={handleChange}
-        />
+        <input type="text" name="instagram" value={form.instagram} onChange={handleChange} />
 
         <label>Goodreads ID</label>
-        <input
-          type="text"
-          name="goodreads"
-          value={form.goodreads}
-          onChange={handleChange}
-        />
+        <input type="text" name="goodreads" value={form.goodreads} onChange={handleChange} />
 
-        <label>Which role are you willing to play?</label>
-        <select name="role" value={form.role} onChange={handleChange}>
-          <option value="">Select</option>
+        <label>Which roles are you willing to play?</label>
+        <select
+          name="role"
+          value={form.role}
+          onChange={handleChange}
+          multiple
+          size={6}
+          className="multi-select"
+        >
           <option value="Bookstagrammer">Bookstagrammer</option>
           <option value="Book Reviewer">Book Reviewer</option>
           <option value="Beta reader">Beta reader</option>
           {isAdminPanel && <option value="Author">Author</option>}
           {isAdminPanel && <option value="Admin">Admin</option>}
         </select>
+        {form.role.length > 0 && (
+          <div className="selected-roles">Selected: {form.role.join(", ")}</div>
+        )}
 
         <label>How often do you post book reviews?</label>
         <select
@@ -204,9 +193,7 @@ export default function RegisterForm({ onClose, isAdminPanel, selectedUser }) {
           <option value="Humor">Humor</option>
           <option value="Poetry">Poetry</option>
           <option value="Biography">Biography</option>
-          <option value="Up for anything! cuz I love books">
-            Up for anything! cuz I love books
-          </option>
+          <option value="Up for anything! cuz I love books">Up for anything! cuz I love books</option>
         </select>
 
         <label>Have you ever collaborated with authors/companies before?</label>
@@ -238,17 +225,13 @@ export default function RegisterForm({ onClose, isAdminPanel, selectedUser }) {
           onChange={handleChange}
         >
           <option value="">Select</option>
-          <option value="Stick to paid partnerships">
-            Stick to paid partnerships
-          </option>
+          <option value="Stick to paid partnerships">Stick to paid partnerships</option>
           <option value="Switch to pr boxes according to what you're offering">
             Switch to pr boxes according to what you're offering
           </option>
         </select>
 
-        <label>
-          Would be open to sharing promotional posts for books we feature?
-        </label>
+        <label>Would be open to sharing promotional posts for books we feature?</label>
         <select
           name="promotionalPostsForBooks"
           value={form.promotionalPostsForBooks}
@@ -278,10 +261,7 @@ export default function RegisterForm({ onClose, isAdminPanel, selectedUser }) {
           <option value="Short term">Short term</option>
         </select>
 
-        <label>
-          Do you agree to promote us and the on board book lovers on your social
-          media?
-        </label>
+        <label>Do you agree to promote us and the on board book lovers on your social media?</label>
         <select
           name="openForSocialMediaPromotion"
           value={form.openForSocialMediaPromotion}
@@ -318,9 +298,6 @@ export default function RegisterForm({ onClose, isAdminPanel, selectedUser }) {
         {error && <p className="error-message">{error}</p>}
 
         <button type="submit">{selectedUser ? "Update" : "Submit"}</button>
-        {/* <button type="button" onClick={onClose} className="cancel-button">
-          Close
-        </button> */}
       </form>
     </div>
   );
