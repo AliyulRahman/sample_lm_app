@@ -1,94 +1,113 @@
+/* Container for the form */
 .register-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 40px 20px;
-  min-height: calc(100vh - 60px);
-  background-color: #f9fafb;
-}
-
-.register-form {
-  background-color: #ffffff;
-  padding: 32px;
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 30px 40px;
+  background: #ffffff;
   border-radius: 12px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  max-width: 500px;
-  width: 100%;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.1);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
+/* Form title */
 .register-form h2 {
-  margin-bottom: 24px;
-  font-size: 24px;
-  color: #111827;
   text-align: center;
+  color: #2c3e50;
+  font-size: 28px;
+  margin-bottom: 30px;
 }
 
+/* Label styling */
 .register-form label {
-  font-size: 14px;
-  margin-bottom: 4px;
   display: block;
-  color: #374151;
+  margin-bottom: 6px;
+  font-weight: 600;
+  color: #34495e;
 }
 
-.register-form input {
-  padding: 10px;
+/* Inputs and selects */
+.register-form input,
+.register-form select {
   width: 100%;
-  margin-bottom: 16px;
-  border: 1px solid #d1d5db;
-  border-radius: 6px;
+  padding: 12px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 20px;
   font-size: 14px;
-  background-color: #fff;
-  color: #111827;
+  background-color: #fdfdfd;
+  transition: border-color 0.3s, box-shadow 0.3s;
 }
 
+.register-form input:focus,
+.register-form select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.2);
+  outline: none;
+}
+
+/* Error message */
+.error-message {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-bottom: 15px;
+}
+
+/* Submit button */
 .register-form button[type="submit"] {
   width: 100%;
-  padding: 10px;
-  background-color: #10b981;
-  color: white;
-  border: none;
-  border-radius: 6px;
+  padding: 14px;
+  background-color: #007bff;
+  color: #ffffff;
+  font-weight: bold;
   font-size: 16px;
+  border: none;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: background-color 0.3s ease;
 }
 
 .register-form button[type="submit"]:hover {
-  background-color: #059669;
+  background-color: #0056b3;
 }
 
-.error-message {
-  color: #dc2626;
-  font-size: 14px;
-  margin-bottom: 12px;
-  text-align: center;
-}
-
+/* Success message container */
 .register-success {
   text-align: center;
-  padding: 40px 20px;
+  padding: 50px 20px;
+  background-color: #e8f6ec;
+  border: 1px solid #b9e6c9;
+  border-radius: 12px;
 }
 
 .register-success h2 {
-  color: #10b981;
-  margin-bottom: 16px;
+  color: #27ae60;
+  font-size: 26px;
+  margin-bottom: 15px;
 }
 
 .register-success p {
-  margin-bottom: 20px;
+  color: #2d3436;
   font-size: 16px;
+  margin-bottom: 25px;
 }
 
 .register-success button {
-  padding: 10px 16px;
-  background-color: #3b82f6;
+  padding: 10px 20px;
+  background-color: #27ae60;
   color: white;
+  font-size: 16px;
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
 }
 
 .register-success button:hover {
-  background-color: #2563eb;
+  background-color: #219150;
+}
+
+/* Responsive styling */
+@media (max-width: 768px) {
+  .register-container {
+    padding: 25px 20px;
+  }
 }
