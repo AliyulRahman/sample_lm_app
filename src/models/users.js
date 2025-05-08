@@ -26,3 +26,8 @@ export function updateUser(email, updates) {
   );
   saveUsers(updatedUsers);
 }
+
+export function getUserByEmail(email) {
+  const users = getStoredUsers();
+  return users.find((user) => user.email === email);
+}
