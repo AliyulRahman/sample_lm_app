@@ -1,52 +1,60 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import "./BookstagrammerInput.css";
 
-export default function BookstagrammerInput({ user }) {
+const STORAGE_KEY = "bookstagrammerDetails";
+
+export default function BookstagrammerInput({ user, onClose }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
-  const storageKey = `bookstagrammer_tasks_${user.email}`;
-
   useEffect(() => {
-    const savedTasks = JSON.parse(localStorage.getItem(storageKey)) || [];
-    setTasks(savedTasks);
-  }, [storageKey]);
+    const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { data: [] };
+    const userEntry = savedData.data.find((entry) => entry.userEmail === user.email);
+    if (userEntry) {
+      setTasks(userEntry.tasks);
+    }
+  }, [user]);
 
   const handleAddTask = () => {
     if (newTask.trim()) {
-      const updatedTasks = [...tasks, newTask.trim()];
-      setTasks(updatedTasks);
-      localStorage.setItem(storageKey, JSON.stringify(updatedTasks));
+      setTasks([...tasks, newTask]);
       setNewTask("");
     }
   };
 
-  const handleDeleteTask = (index) => {
-    const updatedTasks = tasks.filter((_, i) => i !== index);
-    setTasks(updatedTasks);
-    localStorage.setItem(storageKey, JSON.stringify(updatedTasks));
+  const handleSave = () => {
+    const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { data: [] };
+    const existingIndex = savedData.data.findIndex(entry => entry.userEmail === user.email);
+
+    if (existingIndex !== -1) {
+      savedData.data[existingIndex].tasks = tasks;
+    } else {
+      savedData.data.push({ userEmail: user.email, tasks });
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
+    onClose();
   };
 
   return (
-    <div className="bookstagrammer-container">
-      <h3>Tasks for {user.name}</h3>
-      <div className="task-input">
+    <div className="popup-container">
+      <h3>Bookstagrammer Tasks for {user.name}</h3>
+      <ul>
+        {tasks.map((task, idx) => (
+          <li key={idx}>{task}</li>
+        ))}
+      </ul>
+      <div className="task-input-row">
         <input
           type="text"
-          placeholder="Add a new task..."
+          placeholder="Enter task"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
         />
         <button onClick={handleAddTask}>Add</button>
       </div>
-      <ul className="task-list">
-        {tasks.map((task, idx) => (
-          <li key={idx}>
-            {task}
-            <button onClick={() => handleDeleteTask(idx)}>✕</button>
-          </li>
-        ))}
-      </ul>
+      <button className="save-btn" onClick={handleSave}>Save</button>
+      <button className="cancel-btn" onClick={onClose}>Cancel</button>
     </div>
   );
 }

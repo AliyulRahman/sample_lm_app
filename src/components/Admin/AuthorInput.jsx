@@ -1,52 +1,62 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import "./AuthorInput.css";
 
-export default function AuthorInput({ user }) {
-  const [projects, setProjects] = useState([]);
-  const [newProject, setNewProject] = useState("");
+const STORAGE_KEY = "authorDetails";
 
-  const storageKey = `author_projects_${user.email}`;
+export default function AuthorInput({ user, onClose }) {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState("");
 
   useEffect(() => {
-    const savedProjects = JSON.parse(localStorage.getItem(storageKey)) || [];
-    setProjects(savedProjects);
-  }, [storageKey]);
+    const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { data: [] };
+    const userEntry = savedData.data.find((entry) => entry.userEmail === user.email);
+    if (userEntry) {
+      setTasks(userEntry.tasks);
+    }
+  }, [user]);
 
-  const handleAddProject = () => {
-    if (newProject.trim()) {
-      const updated = [...projects, newProject.trim()];
-      setProjects(updated);
-      localStorage.setItem(storageKey, JSON.stringify(updated));
-      setNewProject("");
+  const handleAddTask = () => {
+    if (newTask.trim()) {
+      setTasks([...tasks, newTask]);
+      setNewTask("");
     }
   };
 
-  const handleDeleteProject = (index) => {
-    const updated = projects.filter((_, i) => i !== index);
-    setProjects(updated);
-    localStorage.setItem(storageKey, JSON.stringify(updated));
+  const handleSave = () => {
+    const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY)) || { data: [] };
+    const existingIndex = savedData.data.findIndex(entry => entry.userEmail === user.email);
+
+    if (existingIndex !== -1) {
+      savedData.data[existingIndex].tasks = tasks;
+    } else {
+      savedData.data.push({ userEmail: user.email, tasks });
+    }
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(savedData));
+    onClose();
   };
 
   return (
-    <div className="author-container">
-      <h3>Projects for {user.name}</h3>
-      <div className="project-input">
-        <input
-          type="text"
-          placeholder="Add a new project..."
-          value={newProject}
-          onChange={(e) => setNewProject(e.target.value)}
-        />
-        <button onClick={handleAddProject}>Add</button>
-      </div>
-      <ul className="project-list">
-        {projects.map((project, idx) => (
-          <li key={idx}>
-            {project}
-            <button onClick={() => handleDeleteProject(idx)}>✕</button>
-          </li>
+    <div className="popup-container">
+      <h3>Author Tasks for {user.name}</h3>
+      <ul className="task-list">
+        {tasks.map((task, idx) => (
+          <li key={idx}>{task}</li>
         ))}
       </ul>
+      <div className="task-input-row">
+        <input
+          type="text"
+          placeholder="Enter task"
+          value={newTask}
+          onChange={(e) => setNewTask(e.target.value)}
+        />
+        <button onClick={handleAddTask}>Add</button>
+      </div>
+      <div className="popup-buttons">
+        <button className="save-btn" onClick={handleSave}>Save</button>
+        <button className="cancel-btn" onClick={onClose}>Cancel</button>
+      </div>
     </div>
   );
 }
